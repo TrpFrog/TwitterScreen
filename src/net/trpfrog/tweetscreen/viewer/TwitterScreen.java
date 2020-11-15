@@ -1,0 +1,78 @@
+package net.trpfrog.tweetscreen.viewer;
+
+import net.trpfrog.tweetscreen.comment.CommentProvider;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+
+/**
+ * コメントを描画する透明なスクリーン
+ */
+public class TwitterScreen extends JFrame {
+
+    private final CommentProvider COMMENT_PROVIDER;
+    private JPanel innerPanel;
+    private boolean transparent = false;
+
+    public TwitterScreen(int w, int h) {
+
+        setSize(w, h);
+        setLocationRelativeTo(null);
+        setResizable(true);
+
+        // 透明化
+        setUndecorated(true);
+        setBackground(new Color(0,0,0,0));
+
+        // 透明なので赤枠を出す
+        setAlwaysOnTop(true);
+        Border border = new LineBorder(new Color(0x90e200), 2, true);
+        innerPanel = new JPanel();
+        innerPanel.setBorder(border);
+        innerPanel.setBackground(new Color(0,0,0,0));
+        innerPanel.setBounds(0, 0, w, h);
+        add(innerPanel);
+
+        // コメントは絶対座標で流したい
+        setLayout(null);
+
+        // デコレーションを切っているのでこれでドラッグできるようにする
+        var fdr = new FrameDragListener(this);
+        addMouseListener(fdr);
+        addMouseMotionListener(fdr);
+
+        COMMENT_PROVIDER = new CommentProvider(this);
+        COMMENT_PROVIDER.addComment("Welcome to TwitterScreen!");
+        COMMENT_PROVIDER.start();
+
+        setVisible(true);
+    }
+
+    public void resizeScreen(int w, int h) {
+        Dimension d = new Dimension(w, h);
+        setPreferredSize(d);
+        innerPanel.setSize(d);
+        setVisible(false);
+        pack();
+        setVisible(true);
+    }
+
+    public CommentProvider getCommentProvider() {
+        return COMMENT_PROVIDER;
+    }
+
+    public void enableTransparency(boolean enabled) {
+        if(enabled) {
+            setBackground(new Color(0,0,0,0.8f));
+        } else {
+            setBackground(new Color(0,0,0,0));
+        }
+        transparent = enabled;
+    }
+
+    public boolean isTransparent() {
+        return transparent;
+    }
+}

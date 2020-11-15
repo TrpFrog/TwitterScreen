@@ -1,0 +1,37 @@
+package net.trpfrog.tweetscreen.manager;
+
+import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.stream.WordStreamReader;
+
+import javax.swing.*;
+
+public class ScreenManagerFrame extends JFrame {
+    private final TwitterScreen CHILD_SCREEN;
+    private JButton transparentButton;
+    private JTextField widthField, heightField, fpsField, speedField, debugField;
+
+    public ScreenManagerFrame(TwitterScreen CHILD_SCREEN, WordStreamReader streamReader) {
+        this.CHILD_SCREEN = CHILD_SCREEN;
+
+        setTitle("Settings");
+
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        contentPane.add(new FrameAppearanceSettingsPanel(CHILD_SCREEN));
+        contentPane.add(new WindowSizeSettingsPanel(CHILD_SCREEN));
+        contentPane.add(new CommentSpeedSettingsPanel(CHILD_SCREEN));
+        contentPane.add(new CommentTypeSettingPanel(streamReader.getCommentFactory()));
+        contentPane.add(new TestCommentSenderPanel(CHILD_SCREEN));
+
+        add(contentPane);
+
+        setSize(300, 600);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        setAlwaysOnTop(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+}
