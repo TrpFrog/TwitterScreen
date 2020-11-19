@@ -13,7 +13,7 @@ import java.awt.*;
 public class TwitterScreen extends JFrame {
 
     private final CommentProvider COMMENT_PROVIDER;
-    private JPanel innerPanel;
+    private final JPanel INNER_PANEL;
     private boolean transparent = false;
 
     public TwitterScreen(int w, int h) {
@@ -29,11 +29,11 @@ public class TwitterScreen extends JFrame {
         // 透明なので赤枠を出す
         setAlwaysOnTop(true);
         Border border = new LineBorder(new Color(0x90e200), 2, true);
-        innerPanel = new JPanel();
-        innerPanel.setBorder(border);
-        innerPanel.setBackground(new Color(0,0,0,0));
-        innerPanel.setBounds(0, 0, w, h);
-        add(innerPanel);
+        INNER_PANEL = new JPanel();
+        INNER_PANEL.setBorder(border);
+        INNER_PANEL.setBackground(new Color(0,0,0,0));
+        INNER_PANEL.setBounds(0, 0, w, h);
+        add(INNER_PANEL);
 
         // コメントは絶対座標で流したい
         setLayout(null);
@@ -53,9 +53,10 @@ public class TwitterScreen extends JFrame {
     public void resizeScreen(int w, int h) {
         Dimension d = new Dimension(w, h);
         setPreferredSize(d);
-        innerPanel.setSize(d);
+        INNER_PANEL.setSize(d);
         setVisible(false);
         pack();
+        COMMENT_PROVIDER.onWindowStatusChanged();
         setVisible(true);
     }
 
