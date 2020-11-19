@@ -2,6 +2,7 @@ package net.trpfrog.tweetscreen.comment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Comment extends JLabel{
     Font font;
@@ -9,6 +10,7 @@ public class Comment extends JLabel{
     private final int COMMENT_WIDTH;
     private final int COMMENT_HEIGHT;
     private final int MARGIN = 10;
+    private final long CREATED_DATE = System.currentTimeMillis();
 
     public Comment(String commentStr, int x, int y) {
         super(commentStr);
@@ -50,5 +52,19 @@ public class Comment extends JLabel{
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return CREATED_DATE == comment.CREATED_DATE &&
+                Objects.equals(getText(), comment.getText());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(CREATED_DATE, getText());
     }
 }
