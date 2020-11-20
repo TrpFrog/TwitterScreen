@@ -19,7 +19,7 @@ public class ScreenManagerFrame extends JFrame {
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        contentPane.add(new FrameAppearanceSettingsPanel(CHILD_SCREEN));
+//        contentPane.add(new FrameAppearanceSettingsPanel(CHILD_SCREEN));
         contentPane.add(new WindowSizeSettingsPanel(CHILD_SCREEN));
         contentPane.add(new CommentSpeedSettingsPanel(CHILD_SCREEN));
         contentPane.add(new CommentTypeSettingPanel(streamReader.getCommentFactory()));
