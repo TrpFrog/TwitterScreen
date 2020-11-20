@@ -17,6 +17,7 @@ public class WordStreamReader implements StatusListener {
     private TwitterCommentFactory commentFactory;
 
     private ScreenConfigs config;
+    private BlackList blacklist = BlackList.getInstance();
 
     public TwitterCommentFactory getCommentFactory() {
         return commentFactory;
@@ -54,7 +55,7 @@ public class WordStreamReader implements StatusListener {
     @Override
     public void onStatus(Status status) {
         String comment = status.getText();
-        if(BlackList.getInstance().isBanned(status.getUser().getId())) return;
+        if(blacklist.isBanned(status.getUser().getId())) return;
         if(status.isRetweet()) return;
         if(config.REMOVE_REPLY && status.getInReplyToUserId() > 0) return;
 

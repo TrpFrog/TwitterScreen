@@ -15,11 +15,15 @@ import java.util.Set;
 
 public class BlackList {
     private Set<Long> blacklist = new HashSet<>();
-    private static BlackList singleton = new BlackList();
+    private static BlackList singleton;
     private Twitter twitter = new TwitterFactory().getInstance();
 
     public static BlackList getInstance() {
         return singleton;
+    }
+
+    static {
+        singleton = new BlackList();
     }
 
     private BlackList() {
@@ -47,6 +51,7 @@ public class BlackList {
             System.out.println("[Blacklist]");
             Files.readAllLines(Paths.get("BlackList.txt"))
                     .stream()
+                    .filter(e -> e.matches("^[0-9]+$"))
                     .map(Long::parseLong)
                     .forEach(e -> {
                         blacklist.add(e);
