@@ -12,7 +12,6 @@ public class TwitterCommentFactory {
     private boolean nameVisible = false;
     private boolean removeLinks = true;
     private boolean removeHashtags = true;
-    private boolean removeInReplyTo = true;
 
     public TwitterCommentFactory(ScreenConfigs config) {
         screenNameVisible = config.SHOW_SCREEN_NAME;

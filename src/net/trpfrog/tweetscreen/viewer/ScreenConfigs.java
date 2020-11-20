@@ -29,6 +29,7 @@ public class ScreenConfigs {
 
     public final boolean REMOVE_LINKS;
     public final boolean REMOVE_HASHTAGS;
+    public final boolean REMOVE_REPLY;
 
     public ScreenConfigs(String path) {
         PROPERTIES = new Properties();
@@ -57,6 +58,7 @@ public class ScreenConfigs {
 
         REMOVE_LINKS = getBooleanProperty("remove_links", "true");
         REMOVE_HASHTAGS = getBooleanProperty("remove_hashtags", "true");
+        REMOVE_REPLY = getBooleanProperty("remove_reply", "true");
     }
 
     private Color getAlphaColorProperty(String key, String defaultValue) {

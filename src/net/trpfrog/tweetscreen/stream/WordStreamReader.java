@@ -15,11 +15,14 @@ public class WordStreamReader implements StatusListener {
 
     private TwitterCommentFactory commentFactory;
 
+    private ScreenConfigs config;
+
     public TwitterCommentFactory getCommentFactory() {
         return commentFactory;
     }
 
     public WordStreamReader(CommentProvider cp, String filterTextPath, ScreenConfigs config) throws IOException {
+        this.config = config;
         commentFactory = new TwitterCommentFactory(config);
 
         COMMENT_PROVIDER = cp;
@@ -50,6 +53,7 @@ public class WordStreamReader implements StatusListener {
     public void onStatus(Status status) {
         String comment = status.getText();
         if(status.isRetweet()) return;
+        if(config.REMOVE_REPLY && status.getInReplyToUserId() > 0) return;
 
         COMMENT_PROVIDER.addComment(commentFactory.generate(status));
     }
