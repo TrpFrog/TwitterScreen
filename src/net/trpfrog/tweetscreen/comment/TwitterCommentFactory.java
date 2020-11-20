@@ -1,11 +1,20 @@
 package net.trpfrog.tweetscreen.comment;
 
+import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import twitter4j.Status;
 
 public class TwitterCommentFactory {
 
     private boolean screenNameVisible = false;
     private boolean nameVisible = false;
+
+    public TwitterCommentFactory(ScreenConfigs config) {
+        screenNameVisible = config.SHOW_SCREEN_NAME;
+        nameVisible = config.SHOW_NAME;
+    }
+
+    public TwitterCommentFactory() {}
+
 
     public boolean isScreenNameVisible() {
         return screenNameVisible;

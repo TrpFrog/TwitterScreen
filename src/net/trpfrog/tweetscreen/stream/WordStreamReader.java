@@ -2,6 +2,7 @@ package net.trpfrog.tweetscreen.stream;
 
 import net.trpfrog.tweetscreen.comment.CommentProvider;
 import net.trpfrog.tweetscreen.comment.TwitterCommentFactory;
+import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import twitter4j.*;
 
 import java.io.IOException;
@@ -18,7 +19,9 @@ public class WordStreamReader implements StatusListener {
         return commentFactory;
     }
 
-    public WordStreamReader(CommentProvider cp, String filterTextPath) throws IOException {
+    public WordStreamReader(CommentProvider cp, String filterTextPath, ScreenConfigs config) throws IOException {
+        commentFactory = new TwitterCommentFactory(config);
+
         COMMENT_PROVIDER = cp;
 
         String[] filterWords =

@@ -1,5 +1,7 @@
 package net.trpfrog.tweetscreen.comment;
 
+import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
@@ -12,12 +14,12 @@ public class Comment extends JLabel{
     private final int MARGIN = 10;
     private final long CREATED_DATE = System.currentTimeMillis();
 
-    public Comment(String commentStr, int x, int y) {
+    public Comment(String commentStr, double x, int y, ScreenConfigs config) {
         super(commentStr);
 
-        final int FONT_SIZE = 30;
+        final int FONT_SIZE = config.FONT_SIZE;
         font = new Font(Font.SANS_SERIF, Font.BOLD, FONT_SIZE);
-        setForeground(Color.WHITE);
+        setForeground(config.FONT_COLOR);
         setFont(font);
 
 

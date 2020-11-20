@@ -16,23 +16,25 @@ public class TwitterScreen extends JFrame {
     private final JPanel INNER_PANEL;
     private boolean transparent = false;
 
-    public TwitterScreen(int w, int h) {
+    public TwitterScreen(ScreenConfigs config) {
 
-        setSize(w, h);
+        setSize(config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setResizable(true);
 
         // 透明化
         setUndecorated(true);
-        setBackground(new Color(0,0,0,0));
+        setBackground(config.BACKGROUND_COLOR);
+        getContentPane().setBackground(config.BACKGROUND_COLOR);
 
         // 透明なので赤枠を出す
         setAlwaysOnTop(true);
-        Border border = new LineBorder(new Color(0x90e200), 2, true);
+        Border border = new LineBorder(config.BORDER_COLOR);
         INNER_PANEL = new JPanel();
         INNER_PANEL.setBorder(border);
         INNER_PANEL.setBackground(new Color(0,0,0,0));
-        INNER_PANEL.setBounds(0, 0, w, h);
+
+        INNER_PANEL.setBounds(0, 0, config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
         add(INNER_PANEL);
 
         // コメントは絶対座標で流したい
@@ -43,7 +45,7 @@ public class TwitterScreen extends JFrame {
         addMouseListener(fdr);
         addMouseMotionListener(fdr);
 
-        COMMENT_PROVIDER = new CommentProvider(this);
+        COMMENT_PROVIDER = new CommentProvider(this, config);
         COMMENT_PROVIDER.addComment("Welcome to TwitterScreen!");
         COMMENT_PROVIDER.start();
 

@@ -3,6 +3,7 @@ package net.trpfrog.tweetscreen;
 import com.sun.tools.javac.Main;
 import net.trpfrog.tweetscreen.manager.ScreenManagerFrame;
 import net.trpfrog.tweetscreen.stream.WordStreamReader;
+import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import net.trpfrog.tweetscreen.viewer.TwitterScreen;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.net.URL;
 public class TwitterCommentScreen {
     public static final String FS = File.separator;
     private static String jarPath = System.getProperty("java.class.path");
-    public static final String FILE_PATH = getFilePath();
+    public static final ScreenConfigs CONFIG = new ScreenConfigs(getFilePath() + "config.properties");
 
     private static boolean macOS = false;
 
@@ -37,7 +38,11 @@ public class TwitterCommentScreen {
         var ts = new TwitterScreen(800, 600);
 
         try {
-            WordStreamReader stream = new WordStreamReader(ts.getCommentProvider(), getFilePath() + "FilterWords.txt");
+            var ts = new TwitterScreen(CONFIG);
+            WordStreamReader stream = new WordStreamReader(
+                    ts.getCommentProvider(),
+                    getFilePath() + "FilterWords.txt",
+                    CONFIG);
             new ScreenManagerFrame(ts, stream);
         } catch (IOException e) {
             e.printStackTrace();

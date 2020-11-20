@@ -1,5 +1,6 @@
 package net.trpfrog.tweetscreen.comment;
 
+import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import net.trpfrog.tweetscreen.viewer.TwitterScreen;
 
 import javax.swing.Timer;
@@ -11,22 +12,23 @@ public class CommentProvider {
     private final Set<Comment> NEW_COMMENTS = Collections.synchronizedSet(new HashSet<>());
     private final TreeSet<Integer> AVAILABLE_Y = new TreeSet<>();
     private final Timer TIMER = new Timer(10, e -> moveComments());
-    private int updateInterval = 50;
-    private int commentSpeed = 100;
+    private int updateInterval;
+    private int commentSpeed;
     private final int FONT_HEIGHT;
+    private ScreenConfigs config;
 
-    public CommentProvider(TwitterScreen SCREEN, int fontHeight) {
+    public CommentProvider(TwitterScreen SCREEN, ScreenConfigs config) {
+        this.config = config;
         this.SCREEN = SCREEN;
-        this.FONT_HEIGHT = fontHeight;
+        this.FONT_HEIGHT = config.FONT_SIZE + 20;
         synchronized(AVAILABLE_Y) {
             for(int i = 0; i + FONT_HEIGHT <= SCREEN.getHeight(); i += FONT_HEIGHT) {
                 AVAILABLE_Y.add(i);
             }
         }
-    }
-
-    public CommentProvider(TwitterScreen SCREEN) {
-        this(SCREEN, 50);
+        updateInterval = config.DEFAULT_UPDATE_INTERVAL_MS;
+        commentSpeed = config.DEFAULT_COMMENT_SPEED;
+        TIMER.setDelay(config.DEFAULT_UPDATE_INTERVAL_MS);
     }
 
     /**
