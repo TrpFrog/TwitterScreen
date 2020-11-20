@@ -5,11 +5,14 @@ import net.trpfrog.tweetscreen.viewer.TwitterScreen;
 
 import javax.swing.Timer;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CommentProvider {
     private final TwitterScreen SCREEN;
     private final List<Comment> ACTIVE_COMMENTS = Collections.synchronizedList(new LinkedList<>());
+    private final Queue<String> COMMENT_STR_QUEUE = new ConcurrentLinkedQueue<>();
     private final Set<Comment> NEW_COMMENTS = Collections.synchronizedSet(new HashSet<>());
+
     private final TreeSet<Integer> AVAILABLE_Y = new TreeSet<>();
     private final Timer TIMER = new Timer(10, e -> moveComments());
     private int updateInterval;
@@ -38,14 +41,18 @@ public class CommentProvider {
     public void addComment(String comment) {
         System.err.println(comment);
         if(!canInsert()) return;
+        COMMENT_STR_QUEUE.add(comment);
+    }
 
-        // X座標としてスクリーンの横幅を指定するのは右端から出現させるため
-        Comment newComment = new Comment(comment.trim(), SCREEN.getWidth(), pollOptimalY(), config);
-
-        newComment.setBounds((int)Math.round(newComment.getDoubleX()), newComment.getY(), newComment.getWidth(), newComment.getHeight());
-        ACTIVE_COMMENTS.add(newComment);
-        SCREEN.add(newComment);
-        NEW_COMMENTS.add(newComment);
+    private void insertCommentsInQueue() {
+        while(canInsert() && !COMMENT_STR_QUEUE.isEmpty()) {
+            // X座標としてスクリーンの横幅を指定するのは右端から出現させるため
+            Comment newComment = new Comment(COMMENT_STR_QUEUE.poll(), SCREEN.getWidth(), pollOptimalY(), config);
+            newComment.setBounds((int)Math.floor(newComment.getDoubleX()), newComment.getY(), newComment.getWidth(), newComment.getHeight());
+            ACTIVE_COMMENTS.add(newComment);
+            SCREEN.add(newComment);
+            NEW_COMMENTS.add(newComment);
+        }
     }
 
     public synchronized boolean canInsert() {
@@ -57,7 +64,7 @@ public class CommentProvider {
         return ret == null ? - FONT_HEIGHT : ret;
     }
 
-    private void moveComments() {
+    private synchronized void moveComments() {
         Iterator<Comment> it = ACTIVE_COMMENTS.iterator();
 
         while(it.hasNext()) {
@@ -65,7 +72,7 @@ public class CommentProvider {
 
             double dx = (commentSpeed * updateInterval) / 2048.0; //速度調整
             cmt.setDoubleX(cmt.getDoubleX() - dx);
-            cmt.setBounds((int)Math.round(cmt.getDoubleX()), cmt.getY(), cmt.getWidth(), cmt.getHeight());
+            cmt.setBounds((int)Math.floor(cmt.getDoubleX()), cmt.getY(), cmt.getWidth(), cmt.getHeight());
 
             boolean canInsertOnThisLine = cmt.getDoubleX() + cmt.getWidth() + 10 < SCREEN.getWidth();
             if(canInsertOnThisLine && NEW_COMMENTS.contains(cmt)) {
@@ -80,6 +87,7 @@ public class CommentProvider {
                 it.remove();
             }
         }
+        insertCommentsInQueue();
     }
 
     public synchronized void onWindowStatusChanged() {
