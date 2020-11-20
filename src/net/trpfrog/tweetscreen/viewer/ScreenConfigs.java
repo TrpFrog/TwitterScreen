@@ -16,13 +16,19 @@ public class ScreenConfigs {
     public final int DEFAULT_WINDOW_HEIGHT;
     public final Color BACKGROUND_COLOR;
     public final Color BORDER_COLOR;
+
     public final int FONT_SIZE;
     public final Color FONT_COLOR;
+
     public final int DEFAULT_UPDATE_INTERVAL_MS;
     public final int DEFAULT_COMMENT_SPEED;
+
     public final boolean ALWAYS_ON_TOP;
     public final boolean SHOW_SCREEN_NAME;
     public final boolean SHOW_NAME;
+
+    public final boolean REMOVE_LINKS;
+    public final boolean REMOVE_HASHTAGS;
 
     public ScreenConfigs(String path) {
         PROPERTIES = new Properties();
@@ -48,6 +54,9 @@ public class ScreenConfigs {
 
         SHOW_SCREEN_NAME = getBooleanProperty("show_screen_name", "false");
         SHOW_NAME = getBooleanProperty("show_name", "false");
+
+        REMOVE_LINKS = getBooleanProperty("remove_links", "true");
+        REMOVE_HASHTAGS = getBooleanProperty("remove_hashtags", "true");
     }
 
     private Color getAlphaColorProperty(String key, String defaultValue) {
