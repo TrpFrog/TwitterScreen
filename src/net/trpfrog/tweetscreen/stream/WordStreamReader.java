@@ -13,7 +13,7 @@ public class WordStreamReader implements StatusListener {
     private TwitterStream twitterStream;
     private final CommentProvider COMMENT_PROVIDER;
 
-    private TwitterCommentFactory commentFactory = new TwitterCommentFactory();
+    private TwitterCommentFactory commentFactory;
 
     public TwitterCommentFactory getCommentFactory() {
         return commentFactory;

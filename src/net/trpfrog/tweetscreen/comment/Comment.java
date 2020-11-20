@@ -8,7 +8,8 @@ import java.util.Objects;
 
 public class Comment extends JLabel{
     Font font;
-    private int x, y;
+    private double x;
+    private int y;
     private final int COMMENT_WIDTH;
     private final int COMMENT_HEIGHT;
     private final int MARGIN = 10;
@@ -30,7 +31,7 @@ public class Comment extends JLabel{
         this.y = y;
     }
 
-    public int getX() {
+    public double getDoubleX() {
         return x;
     }
 
@@ -48,7 +49,7 @@ public class Comment extends JLabel{
         return COMMENT_HEIGHT;
     }
 
-    public void setX(int x) {
+    public void setDoubleX(double x) {
         this.x = x;
     }
 

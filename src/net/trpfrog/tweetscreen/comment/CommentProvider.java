@@ -40,9 +40,9 @@ public class CommentProvider {
         if(!canInsert()) return;
 
         // X座標としてスクリーンの横幅を指定するのは右端から出現させるため
-        Comment newComment = new Comment(comment.trim(), SCREEN.getWidth(), pollOptimalY());
+        Comment newComment = new Comment(comment.trim(), SCREEN.getWidth(), pollOptimalY(), config);
 
-        newComment.setBounds(newComment.getX(), newComment.getY(), newComment.getWidth(), newComment.getHeight());
+        newComment.setBounds((int)Math.round(newComment.getDoubleX()), newComment.getY(), newComment.getWidth(), newComment.getHeight());
         ACTIVE_COMMENTS.add(newComment);
         SCREEN.add(newComment);
         NEW_COMMENTS.add(newComment);
@@ -63,11 +63,11 @@ public class CommentProvider {
         while(it.hasNext()) {
             Comment cmt = it.next();
 
-            int dx = (commentSpeed * updateInterval) / 2500; //2500は速度調整
-            cmt.setX(cmt.getX() - dx);
-            cmt.setBounds(cmt.getX(), cmt.getY(), cmt.getWidth(), cmt.getHeight());
+            double dx = (commentSpeed * updateInterval) / 2048.0; //速度調整
+            cmt.setDoubleX(cmt.getDoubleX() - dx);
+            cmt.setBounds((int)Math.round(cmt.getDoubleX()), cmt.getY(), cmt.getWidth(), cmt.getHeight());
 
-            boolean canInsertOnThisLine = cmt.getX() + cmt.getWidth() + 10 < SCREEN.getWidth();
+            boolean canInsertOnThisLine = cmt.getDoubleX() + cmt.getWidth() + 10 < SCREEN.getWidth();
             if(canInsertOnThisLine && NEW_COMMENTS.contains(cmt)) {
                 synchronized(AVAILABLE_Y) {
                     AVAILABLE_Y.add(cmt.getY());
@@ -75,7 +75,7 @@ public class CommentProvider {
                 NEW_COMMENTS.remove(cmt);
             }
 
-            boolean inViewerBounds = cmt.getX() + cmt.getWidth() >= 0;
+            boolean inViewerBounds = cmt.getDoubleX() + cmt.getWidth() >= 0;
             if(!inViewerBounds) {
                 it.remove();
             }
