@@ -15,8 +15,8 @@ public class WindowSizeSettingsPanel extends JPanel {
         CHILD_SCREEN = childScreen;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        WIDTH_FIELD = new IntegerTextField(800);
-        HEIGHT_FIELD = new IntegerTextField(600);
+        WIDTH_FIELD = new IntegerTextField(CHILD_SCREEN.getWidth());
+        HEIGHT_FIELD = new IntegerTextField(CHILD_SCREEN.getHeight());
         WIDTH_FIELD.addActionListener(e -> changeFrameSizeFromFields());
         HEIGHT_FIELD.addActionListener(e -> changeFrameSizeFromFields());
 
