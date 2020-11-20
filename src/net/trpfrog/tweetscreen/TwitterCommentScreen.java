@@ -34,9 +34,6 @@ public class TwitterCommentScreen {
     }
 
     public static void main(String[] args) {
-
-        var ts = new TwitterScreen(800, 600);
-
         try {
             var ts = new TwitterScreen(CONFIG);
             WordStreamReader stream = new WordStreamReader(
@@ -44,9 +41,8 @@ public class TwitterCommentScreen {
                     getFilePath() + "FilterWords.txt",
                     CONFIG);
             new ScreenManagerFrame(ts, stream);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            new CrashWindow(e);
         }
-
     }
 }
