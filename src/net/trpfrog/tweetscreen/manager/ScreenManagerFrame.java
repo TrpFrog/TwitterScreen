@@ -23,6 +23,7 @@ public class ScreenManagerFrame extends JFrame {
         contentPane.add(new WindowSizeSettingsPanel(CHILD_SCREEN));
         contentPane.add(new CommentSpeedSettingsPanel(CHILD_SCREEN));
         contentPane.add(new CommentTypeSettingPanel(streamReader.getCommentFactory()));
+        contentPane.add(new BlackListPanel());
         contentPane.add(new TestCommentSenderPanel(CHILD_SCREEN));
 
         add(contentPane);

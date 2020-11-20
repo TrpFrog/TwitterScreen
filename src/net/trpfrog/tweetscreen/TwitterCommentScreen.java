@@ -1,21 +1,16 @@
 package net.trpfrog.tweetscreen;
 
-import com.sun.tools.javac.Main;
 import net.trpfrog.tweetscreen.manager.ScreenManagerFrame;
 import net.trpfrog.tweetscreen.stream.WordStreamReader;
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import net.trpfrog.tweetscreen.viewer.TwitterScreen;
 
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class TwitterCommentScreen {
     public static final String FS = File.separator;
     private static String jarPath = System.getProperty("java.class.path");
-    public static final ScreenConfigs CONFIG = new ScreenConfigs(getFilePath() + "config.properties");
+    public static final ScreenConfigs CONFIG = new ScreenConfigs(getCurrentFilePath() + "config.properties");
 
     private static boolean macOS = false;
 
@@ -23,8 +18,7 @@ public class TwitterCommentScreen {
         return macOS;
     }
 
-    private static String getFilePath() {
-        System.out.println(System.getProperty("os.name"));
+    public static String getCurrentFilePath() {
         if (System.getProperty("os.name").equals("Mac OS X")) {
             macOS = true;
             return "." + FS;
@@ -38,7 +32,7 @@ public class TwitterCommentScreen {
             var ts = new TwitterScreen(CONFIG);
             WordStreamReader stream = new WordStreamReader(
                     ts.getCommentProvider(),
-                    getFilePath() + "FilterWords.txt",
+                    getCurrentFilePath() + "FilterWords.txt",
                     CONFIG);
             new ScreenManagerFrame(ts, stream);
         } catch (Exception e) {

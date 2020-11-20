@@ -1,5 +1,6 @@
 package net.trpfrog.tweetscreen.stream;
 
+import net.trpfrog.tweetscreen.BlackList;
 import net.trpfrog.tweetscreen.comment.CommentProvider;
 import net.trpfrog.tweetscreen.comment.TwitterCommentFactory;
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
@@ -43,8 +44,9 @@ public class WordStreamReader implements StatusListener {
 
         System.out.println("Stream start!");
         twitterStream.filter(filterQuery);
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("終了しています……");
+            System.out.println("Closing stream...");
             twitterStream.shutdown();
         }));
     }
@@ -52,6 +54,7 @@ public class WordStreamReader implements StatusListener {
     @Override
     public void onStatus(Status status) {
         String comment = status.getText();
+        if(BlackList.getInstance().isBanned(status.getUser().getId())) return;
         if(status.isRetweet()) return;
         if(config.REMOVE_REPLY && status.getInReplyToUserId() > 0) return;
 
