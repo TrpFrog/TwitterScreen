@@ -9,3 +9,7 @@ This is a software that get the tweets containing certain words from Twitter and
 1. Write Twitter API keys to `twitter4j.properties` 
 2. Write words you want to show on the window to `FilterWords.txt` 
 3. Execute `TwitterScreen.jar` 
+
+## System requirements
+
+Java 15
