@@ -61,7 +61,7 @@ public class CommentProvider {
             Comment newComment = new Comment(COMMENT_STR_QUEUE.poll(), SCREEN.getWidth(), pollOptimalY(), config);
             newComment.setBounds((int)Math.floor(newComment.getDoubleX()), newComment.getY(), newComment.getWidth(), newComment.getHeight());
             ACTIVE_COMMENTS.add(newComment);
-            SCREEN.add(newComment);
+            SCREEN.getInnerPanel().add(newComment);
             NEW_COMMENTS.add(newComment);
         }
     }
@@ -87,15 +87,24 @@ public class CommentProvider {
 
             boolean canInsertOnThisLine = cmt.getDoubleX() + cmt.getWidth() + 10 < SCREEN.getWidth();
             if(canInsertOnThisLine && NEW_COMMENTS.contains(cmt)) {
-                INSERTABLE_Y.add(cmt.getY());
+                synchronized(INSERTABLE_Y){
+                    INSERTABLE_Y.add(cmt.getY());
+                }
                 NEW_COMMENTS.remove(cmt);
             }
 
             boolean inViewerBounds = cmt.getDoubleX() + cmt.getWidth() >= 0;
             if(!inViewerBounds) {
                 it.remove();
+                if(NEW_COMMENTS.contains(cmt)) {
+                    synchronized(INSERTABLE_Y){
+                        INSERTABLE_Y.add(cmt.getY());
+                    }
+                    NEW_COMMENTS.remove(cmt);
+                }
             }
         }
+
         insertCommentsInQueue();
     }
 

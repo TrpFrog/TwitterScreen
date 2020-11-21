@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Comment extends JLabel implements Comparable<Comment> {
-    Font font;
+    private Font font;
     private double x;
     private int y;
     private final int COMMENT_WIDTH;
@@ -55,6 +55,11 @@ public class Comment extends JLabel implements Comparable<Comment> {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public Font getFont() {
+        return font;
     }
 
     @Override
