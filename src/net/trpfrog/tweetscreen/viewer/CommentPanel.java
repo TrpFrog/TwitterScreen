@@ -15,8 +15,9 @@ public class CommentPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         for(Comment c : commentList) {
+            g.setColor(c.getFontColor());
             g.setFont(c.getFont());
-            g.drawString(c.getText(), c.getX(), c.getY());
+            g.drawString(c.getText(), c.getX(), c.getY() + c.getHeight() - c.getMARGIN());
         }
     }
 

@@ -48,6 +48,7 @@ public class TwitterScreen extends JFrame {
         addMouseMotionListener(fdr);
 
         COMMENT_PROVIDER = new CommentProvider(this, config);
+
         COMMENT_PROVIDER.addComment("Welcome to TwitterScreen!");
         COMMENT_PROVIDER.start();
         setVisible(true);

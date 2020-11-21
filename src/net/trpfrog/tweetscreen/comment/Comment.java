@@ -6,45 +6,54 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class Comment extends JLabel implements Comparable<Comment> {
+public class Comment implements Comparable<Comment> {
+    private String text;
     private Font font;
     private double x;
     private int y;
     private final int COMMENT_WIDTH;
     private final int COMMENT_HEIGHT;
     private final int MARGIN = 10;
+    private final Color fontColor;
     public final long CREATED_DATE = System.nanoTime();
 
     public Comment(String commentStr, double x, int y, ScreenConfigs config) {
-        super(commentStr);
-
+        text = commentStr;
         final int FONT_SIZE = config.FONT_SIZE;
         font = new Font(Font.SANS_SERIF, Font.BOLD, FONT_SIZE);
-        setForeground(config.FONT_COLOR);
-        setFont(font);
+        fontColor = config.FONT_COLOR;
 
-
-        COMMENT_WIDTH = getFontMetrics(font).stringWidth(commentStr) + MARGIN * 2;
+        COMMENT_WIDTH = new JLabel().getFontMetrics(font).stringWidth(commentStr) + MARGIN * 2;
         COMMENT_HEIGHT = font.getSize() + MARGIN * 2;
 
         this.x = x;
         this.y = y;
     }
 
+    public int getMARGIN() {
+        return MARGIN;
+    }
+
+    public Color getFontColor() {
+        return fontColor;
+    }
+
     public double getDoubleX() {
         return x;
+    }
+
+    public int getX() {
+        return (int) x;
     }
 
     public int getY() {
         return y;
     }
 
-    @Override
     public int getWidth() {
         return COMMENT_WIDTH;
     }
 
-    @Override
     public int getHeight() {
         return COMMENT_HEIGHT;
     }
@@ -57,9 +66,12 @@ public class Comment extends JLabel implements Comparable<Comment> {
         this.y = y;
     }
 
-    @Override
     public Font getFont() {
         return font;
+    }
+
+    public String getText() {
+        return text;
     }
 
     @Override
