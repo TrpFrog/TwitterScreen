@@ -14,11 +14,11 @@ public class CommentTypeSettingPanel extends JPanel {
     public CommentTypeSettingPanel(TwitterCommentFactory factory) {
         this.factory = factory;
 
-        screenNameCheckbox = new JCheckBox("Visible screen name");
+        screenNameCheckbox = new JCheckBox("Set screen name visible");
         screenNameCheckbox.addActionListener(e -> factory.setScreenNameVisible(screenNameCheckbox.isSelected()));
         screenNameCheckbox.setSelected(factory.isScreenNameVisible());
 
-        nameCheckbox = new JCheckBox("Visible name");
+        nameCheckbox = new JCheckBox("Set name visible");
         nameCheckbox.addActionListener(e -> factory.setNameVisible(nameCheckbox.isSelected()));
         nameCheckbox.setSelected(factory.isNameVisible());
 
