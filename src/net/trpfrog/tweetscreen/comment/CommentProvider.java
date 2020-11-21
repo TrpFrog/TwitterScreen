@@ -13,7 +13,7 @@ public class CommentProvider {
     private final Queue<String> COMMENT_STR_QUEUE = new ConcurrentLinkedQueue<>();
     private final Set<Comment> NEW_COMMENTS = Collections.synchronizedSet(new HashSet<>());
 
-    private final TreeSet<Integer> AVAILABLE_Y = new TreeSet<>();
+    private final TreeSet<Integer> INSERTABLE_Y = new TreeSet<>();
     private final Timer TIMER = new Timer(10, e -> moveComments());
     private int updateInterval;
     private int commentSpeed;
@@ -24,9 +24,9 @@ public class CommentProvider {
         this.config = config;
         this.SCREEN = SCREEN;
         this.FONT_HEIGHT = config.FONT_SIZE + 20;
-        synchronized(AVAILABLE_Y) {
+        synchronized(INSERTABLE_Y) {
             for(int i = 0; i + FONT_HEIGHT <= SCREEN.getHeight(); i += FONT_HEIGHT) {
-                AVAILABLE_Y.add(i);
+                INSERTABLE_Y.add(i);
             }
         }
         updateInterval = config.DEFAULT_UPDATE_INTERVAL_MS;
@@ -56,11 +56,11 @@ public class CommentProvider {
     }
 
     public synchronized boolean canInsert() {
-        return !AVAILABLE_Y.isEmpty();
+        return !INSERTABLE_Y.isEmpty();
     }
 
     private synchronized int pollOptimalY() {
-        Integer ret = AVAILABLE_Y.pollFirst();
+        Integer ret = INSERTABLE_Y.pollFirst();
         return ret == null ? - FONT_HEIGHT : ret;
     }
 
@@ -76,9 +76,7 @@ public class CommentProvider {
 
             boolean canInsertOnThisLine = cmt.getDoubleX() + cmt.getWidth() + 10 < SCREEN.getWidth();
             if(canInsertOnThisLine && NEW_COMMENTS.contains(cmt)) {
-                synchronized(AVAILABLE_Y) {
-                    AVAILABLE_Y.add(cmt.getY());
-                }
+                INSERTABLE_Y.add(cmt.getY());
                 NEW_COMMENTS.remove(cmt);
             }
 
@@ -91,10 +89,10 @@ public class CommentProvider {
     }
 
     public synchronized void onWindowStatusChanged() {
-        AVAILABLE_Y.clear();
+        INSERTABLE_Y.clear();
         System.out.println(SCREEN.getHeight());
         for(int i = 0; i + FONT_HEIGHT <= SCREEN.getHeight(); i += FONT_HEIGHT) {
-            AVAILABLE_Y.add(i);
+            INSERTABLE_Y.add(i);
         }
     }
 
