@@ -6,14 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class Comment extends JLabel{
+public class Comment extends JLabel implements Comparable<Comment> {
     Font font;
     private double x;
     private int y;
     private final int COMMENT_WIDTH;
     private final int COMMENT_HEIGHT;
     private final int MARGIN = 10;
-    private final long CREATED_DATE = System.currentTimeMillis();
+    public final long CREATED_DATE = System.nanoTime();
 
     public Comment(String commentStr, double x, int y, ScreenConfigs config) {
         super(commentStr);
@@ -59,7 +59,6 @@ public class Comment extends JLabel{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
         return CREATED_DATE == comment.CREATED_DATE &&
@@ -69,5 +68,13 @@ public class Comment extends JLabel{
     @Override
     public int hashCode() {
         return Objects.hash(CREATED_DATE, getText());
+    }
+
+    @Override
+    public int compareTo(Comment o) {
+        if (o == null || getClass() != o.getClass()) {
+            throw new IllegalArgumentException();
+        }
+        return CREATED_DATE < o.CREATED_DATE ? -1 : 1;
     }
 }
