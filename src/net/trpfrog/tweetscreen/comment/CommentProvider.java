@@ -24,14 +24,25 @@ public class CommentProvider {
         this.config = config;
         this.SCREEN = SCREEN;
         this.FONT_HEIGHT = config.FONT_SIZE + 20;
+        refreshInsertableY();
+        updateInterval = config.DEFAULT_UPDATE_INTERVAL_MS;
+        commentSpeed = config.DEFAULT_COMMENT_SPEED;
+        TIMER.setDelay(config.DEFAULT_UPDATE_INTERVAL_MS);
+    }
+
+    public void refreshInsertableY() {
         synchronized(INSERTABLE_Y) {
             for(int i = 0; i + FONT_HEIGHT <= SCREEN.getHeight(); i += FONT_HEIGHT) {
                 INSERTABLE_Y.add(i);
             }
         }
-        updateInterval = config.DEFAULT_UPDATE_INTERVAL_MS;
-        commentSpeed = config.DEFAULT_COMMENT_SPEED;
-        TIMER.setDelay(config.DEFAULT_UPDATE_INTERVAL_MS);
+    }
+
+    public void refreshActiveComments() {
+        ACTIVE_COMMENTS.forEach(e -> e.setBounds(-(e.getWidth() + 10), 0, 0, 0));
+        NEW_COMMENTS.clear();
+        ACTIVE_COMMENTS.clear();
+        refreshInsertableY();
     }
 
     /**
