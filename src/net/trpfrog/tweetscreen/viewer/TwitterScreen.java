@@ -28,7 +28,7 @@ public class TwitterScreen extends JFrame {
         getContentPane().setBackground(config.BACKGROUND_COLOR);
 
         // 透明なので赤枠を出す
-        setAlwaysOnTop(true);
+        setAlwaysOnTop(config.ALWAYS_ON_TOP);
         Border border = new LineBorder(config.BORDER_COLOR);
         INNER_PANEL = new JPanel();
         INNER_PANEL.setBorder(border);

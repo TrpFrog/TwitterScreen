@@ -34,7 +34,7 @@ public class TwitterCommentScreen {
                     ts.getCommentProvider(),
                     getCurrentFilePath() + "FilterWords.txt",
                     CONFIG);
-            new ScreenManagerFrame(ts, stream);
+            new ScreenManagerFrame(ts, stream, CONFIG);
         } catch (Exception e) {
             new CrashWindow(e);
         }
