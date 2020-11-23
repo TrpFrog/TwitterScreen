@@ -1,5 +1,6 @@
 package net.trpfrog.tweetscreen.viewer;
 
+import net.trpfrog.tweetscreen.TwitterScreen;
 import net.trpfrog.tweetscreen.comment.CommentProvider;
 
 import javax.swing.*;
@@ -21,6 +22,9 @@ public class CommentFrame extends JFrame {
         setSize(config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setResizable(true);
+
+        ImageIcon icon = new ImageIcon(TwitterScreen.getCurrentFilePath() + "resources/icon.png");
+        setIconImage(icon.getImage());
 
         // 透明化
         setUndecorated(true);

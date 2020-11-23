@@ -1,5 +1,6 @@
 package net.trpfrog.tweetscreen.manager;
 
+import net.trpfrog.tweetscreen.TwitterScreen;
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import net.trpfrog.tweetscreen.viewer.CommentFrame;
 import net.trpfrog.tweetscreen.stream.WordStreamReader;
@@ -15,6 +16,9 @@ public class ScreenManagerFrame extends JFrame {
         this.CHILD_SCREEN = CHILD_SCREEN;
 
         setTitle("Settings");
+
+        ImageIcon icon = new ImageIcon(TwitterScreen.getCurrentFilePath() + "resources/icon.png");
+        setIconImage(icon.getImage());
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
