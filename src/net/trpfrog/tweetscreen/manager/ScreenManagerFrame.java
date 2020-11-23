@@ -1,17 +1,17 @@
 package net.trpfrog.tweetscreen.manager;
 
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 import net.trpfrog.tweetscreen.stream.WordStreamReader;
 
 import javax.swing.*;
 
 public class ScreenManagerFrame extends JFrame {
-    private final TwitterScreen CHILD_SCREEN;
+    private final CommentFrame CHILD_SCREEN;
     private JButton transparentButton;
     private JTextField widthField, heightField, fpsField, speedField, debugField;
 
-    public ScreenManagerFrame(TwitterScreen CHILD_SCREEN, WordStreamReader streamReader, ScreenConfigs config) {
+    public ScreenManagerFrame(CommentFrame CHILD_SCREEN, WordStreamReader streamReader, ScreenConfigs config) {
         this.CHILD_SCREEN = CHILD_SCREEN;
 
         setTitle("Settings");

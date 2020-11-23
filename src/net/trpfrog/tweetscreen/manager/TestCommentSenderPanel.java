@@ -1,6 +1,6 @@
 package net.trpfrog.tweetscreen.manager;
 
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -8,9 +8,9 @@ import java.awt.*;
 
 public class TestCommentSenderPanel extends JPanel {
     private final JTextField testCommentTextField;
-    private final TwitterScreen CHILD_SCREEN;
+    private final CommentFrame CHILD_SCREEN;
 
-    public TestCommentSenderPanel(TwitterScreen childScreen) {
+    public TestCommentSenderPanel(CommentFrame childScreen) {
         CHILD_SCREEN = childScreen;
         testCommentTextField = new JTextField();
 

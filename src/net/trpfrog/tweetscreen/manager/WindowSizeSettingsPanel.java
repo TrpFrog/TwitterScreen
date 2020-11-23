@@ -1,6 +1,6 @@
 package net.trpfrog.tweetscreen.manager;
 
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -9,9 +9,9 @@ public class WindowSizeSettingsPanel extends JPanel {
 
     private final IntegerTextField WIDTH_FIELD;
     private final IntegerTextField HEIGHT_FIELD;
-    private final TwitterScreen CHILD_SCREEN;
+    private final CommentFrame CHILD_SCREEN;
 
-    public WindowSizeSettingsPanel(TwitterScreen childScreen) {
+    public WindowSizeSettingsPanel(CommentFrame childScreen) {
         CHILD_SCREEN = childScreen;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

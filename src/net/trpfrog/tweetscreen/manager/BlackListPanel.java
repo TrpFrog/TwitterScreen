@@ -1,7 +1,6 @@
 package net.trpfrog.tweetscreen.manager;
 
 import net.trpfrog.tweetscreen.BlackList;
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

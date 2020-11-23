@@ -1,17 +1,17 @@
 package net.trpfrog.tweetscreen.manager;
 
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class CommentSpeedSettingsPanel extends JPanel {
-    private final TwitterScreen CHILD_SCREEN;
+    private final CommentFrame CHILD_SCREEN;
 
     private final IntegerTextField FPS_FIELD, SPEED_FIELD;
 
-    public CommentSpeedSettingsPanel(TwitterScreen CHILD_SCREEN) {
+    public CommentSpeedSettingsPanel(CommentFrame CHILD_SCREEN) {
         this.CHILD_SCREEN = CHILD_SCREEN;
 
         setLayout(new GridLayout(4, 1));

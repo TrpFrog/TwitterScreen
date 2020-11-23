@@ -1,6 +1,6 @@
 package net.trpfrog.tweetscreen.viewer;
 
-import net.trpfrog.tweetscreen.TwitterCommentScreen;
+import net.trpfrog.tweetscreen.TwitterScreen;
 import net.trpfrog.tweetscreen.comment.Comment;
 
 import javax.swing.*;
@@ -41,9 +41,9 @@ public class CommentPanel extends JPanel {
         for(Comment c : commentList) {
             g.setFont(c.getFont());
 
-            if(TwitterCommentScreen.CONFIG.HAS_FONT_BORDER) {
-                g.setColor(TwitterCommentScreen.CONFIG.FONT_BORDER_COLOR);
-                paintFontBorder(g, c, TwitterCommentScreen.CONFIG.FONT_BORDER_SIZE_PT);
+            if(TwitterScreen.CONFIG.HAS_FONT_BORDER) {
+                g.setColor(TwitterScreen.CONFIG.FONT_BORDER_COLOR);
+                paintFontBorder(g, c, TwitterScreen.CONFIG.FONT_BORDER_SIZE_PT);
             }
 
             g.setColor(c.getFontColor());

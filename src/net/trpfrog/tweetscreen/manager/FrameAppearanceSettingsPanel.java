@@ -1,18 +1,18 @@
 package net.trpfrog.tweetscreen.manager;
 
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class FrameAppearanceSettingsPanel extends JPanel {
-    private final TwitterScreen CHILD_SCREEN;
+    private final CommentFrame CHILD_SCREEN;
 
     private final JButton button;
 
 
-    public FrameAppearanceSettingsPanel(TwitterScreen CHILD_SCREEN) {
+    public FrameAppearanceSettingsPanel(CommentFrame CHILD_SCREEN) {
         this.CHILD_SCREEN = CHILD_SCREEN;
         setLayout(new GridLayout(2,1));
 

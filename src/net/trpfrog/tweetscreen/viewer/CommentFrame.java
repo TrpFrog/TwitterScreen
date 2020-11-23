@@ -10,13 +10,13 @@ import java.awt.*;
 /**
  * コメントを描画する透明なスクリーン
  */
-public class TwitterScreen extends JFrame {
+public class CommentFrame extends JFrame {
 
     private final CommentProvider COMMENT_PROVIDER;
     private final CommentPanel INNER_PANEL;
     private boolean transparent = false;
 
-    public TwitterScreen(ScreenConfigs config) {
+    public CommentFrame(ScreenConfigs config) {
 
         setSize(config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
         setLocationRelativeTo(null);

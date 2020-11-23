@@ -3,11 +3,11 @@ package net.trpfrog.tweetscreen;
 import net.trpfrog.tweetscreen.manager.ScreenManagerFrame;
 import net.trpfrog.tweetscreen.stream.WordStreamReader;
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import java.io.File;
 
-public class TwitterCommentScreen {
+public class TwitterScreen {
     public static final String FS = File.separator;
     private static String jarPath = System.getProperty("java.class.path");
     public static final ScreenConfigs CONFIG = new ScreenConfigs(getCurrentFilePath() + "config.properties");
@@ -29,7 +29,7 @@ public class TwitterCommentScreen {
 
     public static void main(String[] args) {
         try {
-            var ts = new TwitterScreen(CONFIG);
+            var ts = new CommentFrame(CONFIG);
             WordStreamReader stream = new WordStreamReader(
                     ts.getCommentProvider(),
                     getCurrentFilePath() + "FilterWords.txt",

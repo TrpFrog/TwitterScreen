@@ -31,7 +31,7 @@ public class BlackList {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Updating blacklist...");
             try {
-                FileWriter writer = new FileWriter(TwitterCommentScreen.getCurrentFilePath() + "BlackList.txt");
+                FileWriter writer = new FileWriter(TwitterScreen.getCurrentFilePath() + "BlackList.txt");
                 PrintWriter pw = new PrintWriter(new BufferedWriter(writer));
                 for(long id : blacklist) {
                     System.out.println(id);

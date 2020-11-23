@@ -1,14 +1,14 @@
 package net.trpfrog.tweetscreen.comment;
 
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
-import net.trpfrog.tweetscreen.viewer.TwitterScreen;
+import net.trpfrog.tweetscreen.viewer.CommentFrame;
 
 import javax.swing.Timer;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CommentProvider {
-    private final TwitterScreen SCREEN;
+    private final CommentFrame SCREEN;
     private final List<Comment> ACTIVE_COMMENTS = Collections.synchronizedList(new LinkedList<>());
     private final Queue<String> COMMENT_STR_QUEUE = new ConcurrentLinkedQueue<>();
     private final Set<Comment> NEW_COMMENTS = Collections.synchronizedSet(new HashSet<>());
@@ -20,7 +20,7 @@ public class CommentProvider {
     private final int FONT_HEIGHT;
     private ScreenConfigs config;
 
-    public CommentProvider(TwitterScreen SCREEN, ScreenConfigs config) {
+    public CommentProvider(CommentFrame SCREEN, ScreenConfigs config) {
         this.config = config;
         this.SCREEN = SCREEN;
         this.FONT_HEIGHT = config.FONT_SIZE + 20;
