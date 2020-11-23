@@ -40,16 +40,18 @@ public class WordStreamReader implements StatusListener {
         FilterQuery filterQuery = new FilterQuery();
         filterQuery.track(filterWords);
 
-        twitterStream = new TwitterStreamFactory().getInstance();
-        twitterStream.addListener(this);
+        if(config.STREAMING) {
+            twitterStream = new TwitterStreamFactory().getInstance();
+            twitterStream.addListener(this);
 
-        System.out.println("Stream start!");
-        twitterStream.filter(filterQuery);
+            System.out.println("Stream start!");
+            twitterStream.filter(filterQuery);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Closing stream...");
-            twitterStream.shutdown();
-        }));
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Closing stream...");
+                twitterStream.shutdown();
+            }));
+        }
     }
 
     @Override
