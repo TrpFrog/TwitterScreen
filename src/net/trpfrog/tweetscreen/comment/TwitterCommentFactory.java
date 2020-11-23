@@ -1,5 +1,6 @@
 package net.trpfrog.tweetscreen.comment;
 
+import net.trpfrog.tweetscreen.stream.TwitterConfigs;
 import net.trpfrog.tweetscreen.viewer.ScreenConfigs;
 import twitter4j.Status;
 
@@ -13,7 +14,7 @@ public class TwitterCommentFactory {
     private boolean removeLinks = true;
     private boolean removeHashtags = true;
 
-    public TwitterCommentFactory(ScreenConfigs config) {
+    public TwitterCommentFactory(TwitterConfigs config) {
         screenNameVisible = config.SHOW_SCREEN_NAME;
         nameVisible = config.SHOW_NAME;
         removeLinks = config.REMOVE_LINKS;

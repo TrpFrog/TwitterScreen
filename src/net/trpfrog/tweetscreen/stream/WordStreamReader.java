@@ -16,14 +16,14 @@ public class WordStreamReader implements StatusListener {
 
     private TwitterCommentFactory commentFactory;
 
-    private ScreenConfigs config;
+    private TwitterConfigs config;
     private BlackList blacklist = BlackList.getInstance();
 
     public TwitterCommentFactory getCommentFactory() {
         return commentFactory;
     }
 
-    public WordStreamReader(CommentProvider cp, String filterTextPath, ScreenConfigs config) throws IOException {
+    public WordStreamReader(CommentProvider cp, String filterTextPath, TwitterConfigs config) throws IOException {
         this.config = config;
         commentFactory = new TwitterCommentFactory(config);
 

@@ -29,11 +29,6 @@ public class ScreenConfigs {
     public final boolean SHOW_SCREEN_NAME;
     public final boolean SHOW_NAME;
 
-    public final boolean REMOVE_LINKS;
-    public final boolean REMOVE_HASHTAGS;
-    public final boolean REMOVE_REPLY;
-
-    public final boolean STREAMING;
 
     public ScreenConfigs(String path) {
         PROPERTIES = new Properties();
@@ -62,15 +57,9 @@ public class ScreenConfigs {
 
         SHOW_SCREEN_NAME = getBooleanProperty("show_screen_name", "false");
         SHOW_NAME = getBooleanProperty("show_name", "false");
-
-        REMOVE_LINKS = getBooleanProperty("remove_links", "true");
-        REMOVE_HASHTAGS = getBooleanProperty("remove_hashtags", "true");
-        REMOVE_REPLY = getBooleanProperty("remove_reply", "true");
-
-        STREAMING = getBooleanProperty("streaming", "true");
     }
 
-    private Color getAlphaColorProperty(String key, String defaultValue) {
+    protected Color getAlphaColorProperty(String key, String defaultValue) {
         Color c = Color.WHITE;
         try {
             c = new Color(Integer.parseUnsignedInt(PROPERTIES.getProperty(key, defaultValue), 16), true);
@@ -80,7 +69,7 @@ public class ScreenConfigs {
         return c;
     }
 
-    private Color getColorProperty(String key, String defaultValue) {
+    protected Color getColorProperty(String key, String defaultValue) {
         Color c = Color.WHITE;
         try {
             c = new Color(Integer.parseInt(PROPERTIES.getProperty(key, defaultValue), 16));
@@ -90,7 +79,7 @@ public class ScreenConfigs {
         return c;
     }
 
-    private int getIntProperty(String key, String defaultValue) {
+    protected int getIntProperty(String key, String defaultValue) {
         int x = 0;
         try {
             x = Integer.parseInt(PROPERTIES.getProperty(key, defaultValue));
@@ -100,7 +89,7 @@ public class ScreenConfigs {
         return x;
     }
 
-    private boolean getBooleanProperty(String key, String defaultValue) {
+    protected boolean getBooleanProperty(String key, String defaultValue) {
         boolean b = true;
         try {
             b = Boolean.parseBoolean(PROPERTIES.getProperty(key, defaultValue));

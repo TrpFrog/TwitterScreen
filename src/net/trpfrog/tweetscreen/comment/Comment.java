@@ -7,15 +7,15 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Comment implements Comparable<Comment> {
-    private String text;
-    private Font font;
+    private final String text;
+    private final Font font;
     private double x;
     private int y;
-    private final int COMMENT_WIDTH;
-    private final int COMMENT_HEIGHT;
-    private final int MARGIN = 10;
+    private final int width;
+    private final int height;
+    private final int margin = 10;
     private final Color fontColor;
-    public final long CREATED_DATE = System.nanoTime();
+    private final long createdDate = System.nanoTime();
 
     public Comment(String commentStr, double x, int y, ScreenConfigs config) {
         text = commentStr;
@@ -23,15 +23,15 @@ public class Comment implements Comparable<Comment> {
         font = new Font(Font.SANS_SERIF, Font.BOLD, FONT_SIZE);
         fontColor = config.FONT_COLOR;
 
-        COMMENT_WIDTH = new JLabel().getFontMetrics(font).stringWidth(commentStr) + MARGIN * 2;
-        COMMENT_HEIGHT = font.getSize() + MARGIN * 2;
+        width = new JLabel().getFontMetrics(font).stringWidth(commentStr) + margin * 2;
+        height = font.getSize() + margin * 2;
 
         this.x = x;
         this.y = y;
     }
 
-    public int getMARGIN() {
-        return MARGIN;
+    public int getMargin() {
+        return margin;
     }
 
     public Color getFontColor() {
@@ -51,11 +51,11 @@ public class Comment implements Comparable<Comment> {
     }
 
     public int getWidth() {
-        return COMMENT_WIDTH;
+        return width;
     }
 
     public int getHeight() {
-        return COMMENT_HEIGHT;
+        return height;
     }
 
     public void setDoubleX(double x) {
@@ -78,13 +78,13 @@ public class Comment implements Comparable<Comment> {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
-        return CREATED_DATE == comment.CREATED_DATE &&
+        return createdDate == comment.createdDate &&
                 Objects.equals(getText(), comment.getText());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(CREATED_DATE, getText());
+        return Objects.hash(createdDate, getText());
     }
 
     @Override
@@ -92,6 +92,6 @@ public class Comment implements Comparable<Comment> {
         if (o == null || getClass() != o.getClass()) {
             throw new IllegalArgumentException();
         }
-        return CREATED_DATE < o.CREATED_DATE ? -1 : 1;
+        return createdDate < o.createdDate ? -1 : 1;
     }
 }

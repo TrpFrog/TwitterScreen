@@ -33,20 +33,10 @@ public class CommentFrame extends JFrame {
 
         // 透明なので赤枠を出す
         setAlwaysOnTop(config.ALWAYS_ON_TOP);
-        Border border = new LineBorder(config.BORDER_COLOR);
 
-        INNER_PANEL = new CommentPanel();
-        INNER_PANEL.setBorder(border);
-
-        if(config.BACKGROUND_COLOR.getAlpha() != 0) {
-            INNER_PANEL.setBackground(config.BACKGROUND_COLOR);
-        } else {
-            INNER_PANEL.setOpaque(false);
-        }
-
-        INNER_PANEL.setLayout(null);
-
+        INNER_PANEL = new CommentPanel(config);
         INNER_PANEL.setBounds(0, 0, config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
+
         add(INNER_PANEL);
 
         // コメントは絶対座標で流したい

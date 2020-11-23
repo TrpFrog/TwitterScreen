@@ -76,12 +76,12 @@ public class CommentProvider {
     private synchronized void moveComments() {
 
         Iterator<Comment> it = ACTIVE_COMMENTS.iterator();
+        double dx = - (commentSpeed * updateInterval) / 2048.0; //速度調整
 
         while(it.hasNext()) {
             Comment cmt = it.next();
 
-            double dx = (commentSpeed * updateInterval) / 2048.0; //速度調整
-            cmt.setDoubleX(cmt.getDoubleX() - dx);
+            cmt.setDoubleX(cmt.getDoubleX() + dx);
 
             boolean canInsertOnThisLine = cmt.getDoubleX() + cmt.getWidth() + 10 < SCREEN.getWidth();
             if(canInsertOnThisLine && NEW_COMMENTS.contains(cmt)) {
@@ -103,8 +103,7 @@ public class CommentProvider {
             }
         }
 
-        SCREEN.getInnerPanel().setCommentList(ACTIVE_COMMENTS);
-        SCREEN.getInnerPanel().repaint();
+        SCREEN.getInnerPanel().paintComments(ACTIVE_COMMENTS);
 
         insertCommentsInQueue();
     }
