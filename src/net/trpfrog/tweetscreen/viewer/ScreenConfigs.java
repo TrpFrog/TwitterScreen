@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ScreenConfigs {
-
     private final Properties PROPERTIES;
 
     public final int DEFAULT_WINDOW_WIDTH;
@@ -19,6 +18,9 @@ public class ScreenConfigs {
 
     public final int FONT_SIZE;
     public final Color FONT_COLOR;
+    public final boolean HAS_FONT_BORDER;
+    public final Color FONT_BORDER_COLOR;
+    public final int FONT_BORDER_SIZE_PT;
 
     public final int DEFAULT_UPDATE_INTERVAL_MS;
     public final int DEFAULT_COMMENT_SPEED;
@@ -47,6 +49,9 @@ public class ScreenConfigs {
 
         FONT_SIZE = getIntProperty("font_size", "30");
         FONT_COLOR = getColorProperty("font_color_rgb", "ffffff");
+        HAS_FONT_BORDER = getBooleanProperty("show_font_border", "false");
+        FONT_BORDER_COLOR = getColorProperty("font_border_color_rgb", "000000");
+        FONT_BORDER_SIZE_PT = getIntProperty("font_border_size_pt", "2");
 
         DEFAULT_UPDATE_INTERVAL_MS = getIntProperty("default_update_interval_ms", "50");
         DEFAULT_COMMENT_SPEED = getIntProperty("default_comment_speed", "100");
