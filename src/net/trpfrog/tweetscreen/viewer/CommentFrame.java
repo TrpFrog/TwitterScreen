@@ -33,7 +33,13 @@ public class CommentFrame extends JFrame {
 
         INNER_PANEL = new CommentPanel();
         INNER_PANEL.setBorder(border);
-        INNER_PANEL.setBackground(config.BACKGROUND_COLOR);
+
+        if(config.BACKGROUND_COLOR.getAlpha() != 0) {
+            INNER_PANEL.setBackground(config.BACKGROUND_COLOR);
+        } else {
+            INNER_PANEL.setOpaque(false);
+        }
+
         INNER_PANEL.setLayout(null);
 
         INNER_PANEL.setBounds(0, 0, config.DEFAULT_WINDOW_WIDTH, config.DEFAULT_WINDOW_HEIGHT);
